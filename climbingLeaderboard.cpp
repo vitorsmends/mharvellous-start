@@ -2,9 +2,20 @@
    Title: Linked List
    Description: This program inserts a value into a linked list, searches for a value in a linked list, and prints the value(s) of the linked list
 */
-
+#include <iostream>
+#include <string>
+#include <sstream>
+#include <iterator>
+#include <vector>
+#include <algorithm>
 #include <stdio.h> //malloc
 #include <stdlib.h>
+
+using std::cout; using std::cin;
+using std::endl; using std::string;
+using std::vector; using std::istringstream;
+using std::stringstream;
+
 struct ll
 {
     int data;
@@ -105,6 +116,29 @@ struct ll *inserting_points(struct ll *player, int num){
         player = insert_back(player, points);
     }
     return player;
+}
+
+vector<int> divide(string text){
+
+    text = text + " ";
+    string space_delimiter = " ";
+    vector<string> num_string{};
+    vector<int> num_int{};
+
+    size_t pos = 0;
+    while ((pos = text.find(space_delimiter)) != string::npos) {
+        num_string.push_back(text.substr(0, pos));
+        text.erase(0, pos + space_delimiter.length());
+    }
+    
+    for (const auto &str : num_string) {
+    int num;
+    num = stoi(str);
+    num_int.push_back(num);
+    }
+    
+    return num_int;
+   
 }
 
     main(void){
