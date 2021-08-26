@@ -19,8 +19,7 @@ void print(struct ll *front);
 
 struct ll *create_node(int num);
 
-struct ll *create_node(int num)
-{
+struct ll *create_node(int num){
 
     struct ll *temp;
 
@@ -32,8 +31,7 @@ struct ll *create_node(int num)
     return temp;
 }
 
-struct ll *insert_front(struct ll *front, int num)
-{
+struct ll *insert_front(struct ll *front, int num){
 
     struct ll *temp = create_node(num);
     temp->next = front;
@@ -41,8 +39,7 @@ struct ll *insert_front(struct ll *front, int num)
     return temp;
 }
 
-struct ll *insert_back(struct ll *front, int num)
-{
+struct ll *insert_back(struct ll *front, int num){
 
     struct ll *temp = create_node(num); //Create temporary node
     struct ll *begin = front;           //Store front of the linked list
@@ -63,8 +60,7 @@ struct ll *insert_back(struct ll *front, int num)
     return begin; // return the pointer to the front of the list
 }
 
-int search(struct ll *front, int val)
-{
+int search(struct ll *front, int val){
 
     //Iterate through the linked list until we reach the last node
     while (front->next != NULL)
