@@ -110,11 +110,12 @@ struct ll *inserting_players(struct ll *rank, int num){
 }
 
 struct ll *inserting_points(struct ll *player, int num){
-    int points;
-    for (int i = 0; i < num; i++){
-        scanf("%d", &points);
-        player = insert_back(player, points);
-    }
+    string points_string;
+    vector<int> points_int{};
+    cin >> points_string;
+    points_int = divide(points_string);
+    
+
     return player;
 }
 
