@@ -1,6 +1,8 @@
 /*
-   Title: Linked List
-   Description: This program inserts a value into a linked list, searches for a value in a linked list, and prints the value(s) of the linked list
+pos ta ficando em 0;
+consertar o contador;
+o resto nao ta com problemas;
+terminar função compare
 */
 #include <iostream>
 #include <string>
@@ -15,16 +17,18 @@ using std::cout; using std::cin;
 using std::endl; using std::string;
 using std::vector; using std::istringstream;
 using std::stringstream;
+int tam_ranked = 0,  tam_player = 0;
 
-struct ll
-{
+
+struct ll{
     int data;
+    int position;
     struct ll *next;
 };
 
 //Define linked list functions
 struct ll *insert_back(struct ll *front, int num);
-struct ll *insert_front(struct ll *front, int num);
+struct ll *insert_front(struct ll *front, int num, int position);
 int search(struct ll *front, int val);
 void print(struct ll *front);
 
@@ -42,11 +46,10 @@ struct ll *create_node(int num){
     return temp;
 }
 
-struct ll *insert_front(struct ll *front, int num){
-
+struct ll *insert_front(struct ll *front, int num, int position){
+    
     struct ll *temp = create_node(num);
     temp->next = front;
-
     return temp;
 }
 
@@ -67,7 +70,6 @@ struct ll *insert_back(struct ll *front, int num){
 
     //Insert temp into the list
     front->next = temp;
-
     return begin; // return the pointer to the front of the list
 }
 
@@ -86,12 +88,18 @@ int search(struct ll *front, int val){
     return 0; // value was not found in list return 0
 }
 
-void print(struct ll *front)
+void print(struct ll *front, int num)
 {
     //Iterate through the linked list until we reach the last node
-
-    while (front != NULL)
-    {
+    if(num == 1){
+        printf("tamanho %d\n", tam_ranked);
+        
+    }
+    else{
+        printf("tamanho %d\n", tam_player);
+    }
+    while (front != NULL){
+        printf("pos: %d ", front->position);
         printf("%d ", front->data);
         front = front->next;
     }
@@ -128,12 +136,25 @@ struct ll *inserting(struct ll *rank, int num){
     getline(cin, points_string);
     points_int = divide(points_string);
     
-    for (const auto &point : points_int) {
-        rank = insert_back(rank ,point);
+    if(num == 1){
+        int cont_1 = 1;
+        for (const auto &point : points_int){
+            cout << cont_1;
+            rank = insert_front(rank, point, cont_1);
+            tam_ranked++;
+            cont_1++;
+        }
+    }else{
+        int cont_2 = 1;
+            for (const auto &point : points_int) {
+            rank = insert_front(rank, point, cont_2);
+            tam_player++;
+            cont_2++;
+        }
     }
+    
     return rank;
 }
-
 
 
 main(void){
@@ -144,10 +165,11 @@ main(void){
     string num;
     vector<int> points;
     
-    getline(cin, num);
-    ranked = inserting(ranked, 2);
-    getline(cin, num);
-    player = inserting(player, 3);
-    
+    //getline(cin, num);
+    ranked = inserting(ranked, 1);
+    //getline(cin, num);
+    //player = inserting(player, 2);
+    print(ranked, 1);
+    //print(player, 2);
 
 }
