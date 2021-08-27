@@ -121,7 +121,7 @@ vector<int> divide(string text){
    
 }
 
-struct ll *inserting_players(struct ll *rank, int num){
+struct ll *inserting(struct ll *rank, int num){
     string points_string;
     vector<int> points_int{};
     
@@ -131,22 +131,9 @@ struct ll *inserting_players(struct ll *rank, int num){
     for (const auto &point : points_int) {
         rank = insert_back(rank ,point);
     }
-    print(rank);
     return rank;
 }
 
-struct ll *inserting_points(struct ll *player, int num){
-    string points_string;
-    vector<int> points_int{};
-
-    points_int = divide(points_string);
-    
-    for (const auto &point : points_int) {
-        cout << point << endl;
-    }
-
-    return player;
-}
 
 
 main(void){
@@ -154,9 +141,13 @@ main(void){
     struct ll *ranked, *player;
     ranked = NULL; // An empty linked list
     player = NULL;
-    int num;
+    string num;
     vector<int> points;
     
-    ranked = inserting_players(ranked, 2);
+    getline(cin, num);
+    ranked = inserting(ranked, 2);
+    getline(cin, num);
+    player = inserting(player, 3);
     
+
 }
