@@ -99,13 +99,16 @@ void print(struct ll *front)
 }
 
 struct ll *inserting_players(struct ll *rank, int num){
-    int points;
-    for (int i = 0; i < num; i++){
-        scanf("%d", &points);
-        rank = insert_back(rank, points);
+    string points_string;
+    vector<int> points_int{};
+
+    for(int i = 0; i < num; i++){
+        cin >> points_string;
+        points_int = divide(points_string);
+        rank = insert_back(rank, points_int[i]);
     }
     
-    print(rank);
+
     return rank;
 }
 
