@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <stdio.h> //malloc
 #include <stdlib.h>
-
+#include  <bits/stdc++.h>
 using std::cout; using std::cin;
 using std::endl; using std::string;
 using std::vector; using std::istringstream;
@@ -98,29 +98,8 @@ void print(struct ll *front)
     printf("\n");
 }
 
-struct ll *inserting_players(struct ll *rank, int num){
-    int points;
-    for (int i = 0; i < num; i++){
-        scanf("%d", &points);
-        rank = insert_back(rank, points);
-    }
-    
-    print(rank);
-    return rank;
-}
-
-struct ll *inserting_points(struct ll *player, int num){
-    string points_string;
-    vector<int> points_int{};
-    cin >> points_string;
-    points_int = divide(points_string);
-    
-
-    return player;
-}
-
 vector<int> divide(string text){
-
+    
     text = text + " ";
     string space_delimiter = " ";
     vector<string> num_string{};
@@ -142,16 +121,42 @@ vector<int> divide(string text){
    
 }
 
-    main(void){
-
-        struct ll *ranked, *player;
-        ranked = NULL; // An empty linked list
-        player = NULL;
-        int num;
-        //start the input
-        scanf("%d", &num);
-        ranked = inserting_players(ranked, num);
-        scanf("%d", &num);
-        player = inserting_players(player, num);
-
+struct ll *inserting_players(struct ll *rank, int num){
+    string points_string;
+    vector<int> points_int{};
+    
+    getline(cin, points_string);
+    points_int = divide(points_string);
+    
+    for (const auto &point : points_int) {
+        rank = insert_back(rank ,point);
     }
+    print(rank);
+    return rank;
+}
+
+struct ll *inserting_points(struct ll *player, int num){
+    string points_string;
+    vector<int> points_int{};
+
+    points_int = divide(points_string);
+    
+    for (const auto &point : points_int) {
+        cout << point << endl;
+    }
+
+    return player;
+}
+
+
+main(void){
+
+    struct ll *ranked, *player;
+    ranked = NULL; // An empty linked list
+    player = NULL;
+    int num;
+    vector<int> points;
+    
+    ranked = inserting_players(ranked, 2);
+    
+}
