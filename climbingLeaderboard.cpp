@@ -27,51 +27,33 @@ struct ll{
 };
 
 //Define linked list functions
-struct ll *insert_back(struct ll *front, int num);
-struct ll *insert_front(struct ll *front, int num, int position);
+struct ll *insert_back(struct ll *front, int num, int posit);
+struct ll *insert_front(struct ll *front, int num, int posit);
 int search(struct ll *front, int val);
 void print(struct ll *front);
 
-struct ll *create_node(int num);
+struct ll *create_node(int num, int posit);
 
-struct ll *create_node(int num){
+struct ll *create_node(int num, int posit){
 
     struct ll *temp;
 
     //Create temporary node
     temp = (struct ll *)malloc(sizeof(struct ll));
     temp->data = num;
+    temp->position = posit;
     temp->next = NULL;
 
     return temp;
 }
 
 struct ll *insert_front(struct ll *front, int num, int position){
-    
-    struct ll *temp = create_node(num);
+    //cout << "\npos: "<< position;
+    struct ll *temp = create_node(num, position);
     temp->next = front;
     return temp;
 }
 
-struct ll *insert_back(struct ll *front, int num){
-
-    struct ll *temp = create_node(num); //Create temporary node
-    struct ll *begin = front;           //Store front of the linked list
-
-    //Check if we are inserting into a empty or NULL list
-    if (front == NULL)
-        return temp;
-
-    //Iterate through the linked list until we reach the last node
-    while (front->next != NULL)
-    {
-        front = front->next;
-    }
-
-    //Insert temp into the list
-    front->next = temp;
-    return begin; // return the pointer to the front of the list
-}
 
 int search(struct ll *front, int val){
 
@@ -79,8 +61,8 @@ int search(struct ll *front, int val){
     while (front->next != NULL)
     {
 
-        if (front->data == val) // value was found in list return 1
-            return 1;
+        if (front->position == val) // value was found in list return 1
+            return front->data;
 
         front = front->next;
     }
@@ -88,19 +70,19 @@ int search(struct ll *front, int val){
     return 0; // value was not found in list return 0
 }
 
-void print(struct ll *front, int num)
+void print(struct ll *front, int tipo)
 {
     //Iterate through the linked list until we reach the last node
-    if(num == 1){
-        printf("tamanho %d\n", tam_ranked);
+    if(tipo == 1){
+        //printf("\ntamanho ranked %d\n", tam_ranked);
         
     }
     else{
-        printf("tamanho %d\n", tam_player);
+        //printf("tamanho player %d\n", tam_player);
     }
     while (front != NULL){
-        printf("pos: %d ", front->position);
-        printf("%d ", front->data);
+        printf("pos = %d ", front->position);
+        printf("num = %d ", front->data);
         front = front->next;
     }
     printf("\n");
@@ -129,27 +111,28 @@ vector<int> divide(string text){
    
 }
 
-struct ll *inserting(struct ll *rank, int num){
+struct ll *inserting(struct ll *rank, int tipo, int tam){
     string points_string;
     vector<int> points_int{};
-    
+    int aux = tam, res = -1;
     getline(cin, points_string);
     points_int = divide(points_string);
     
-    if(num == 1){
-        int cont_1 = 1;
+    if(tipo == 1){
+        tam_ranked = tam;
+        int posi_r = 1;
         for (const auto &point : points_int){
-            cout << cont_1;
-            rank = insert_front(rank, point, cont_1);
-            tam_ranked++;
-            cont_1++;
+            if(point != res) rank = insert_front(rank, point, posi_r);
+            if(point == res) tam_ranked--;
+            res = point;
+            posi_r++;
+            aux--;
         }
     }else{
-        int cont_2 = 1;
-            for (const auto &point : points_int) {
-            rank = insert_front(rank, point, cont_2);
-            tam_player++;
-            cont_2++;
+        tam_player = tam;
+        for (const auto &point : points_int) {
+            rank = insert_front(rank, point, aux);
+            aux--;
         }
     }
     
@@ -157,19 +140,63 @@ struct ll *inserting(struct ll *rank, int num){
 }
 
 
+vector<int> compare(struct ll *ranked, struct ll *player){
+    print(ranked, 1);
+    print(player, 2);
+    int i_ranked, i_player;
+    vector<int> pos_player;
+    cout << "tam: " << tam_ranked << "\n";
+    
+    for(int j = tam_player; j > 0; j--){
+    cout << "\n-------- pos_player: "<< j<<"---------\n"; 
+        i_player = search(player, j);
+        
+        for(int i = tam_ranked; i > 0; i--){
+            
+            cout << "\ncomparando p = "<< i_player << " com r = "<< i_ranked<<"\n";
+            
+            cout << "\n----pos_rank: "<< i<<"-----n/";
+            i_ranked = search(ranked, i);
+            cout << "\n vez:"<< i<<"\n";
+            if(i_player > i_ranked){ 
+                cout << "maior";
+                if(i = 0){ 
+                    pos_player.push_back(1);
+                }
+            }
+            else if(i_player = i_ranked){
+                cout << "igual";
+                pos_player.push_back(i);
+            }
+            else if(i_player < i_ranked){
+                cout << "é menor";
+                pos_player.push_back(i+1);
+            }
+             
+        }
+    }
+    return pos_player;
+}
+
 main(void){
 
     struct ll *ranked, *player;
     ranked = NULL; // An empty linked list
     player = NULL;
-    string num;
-    vector<int> points;
-    
+    string num = "3"; 
+    vector<int> solution;
     //getline(cin, num);
-    ranked = inserting(ranked, 1);
+    int m = stoi(num);
+    ranked = inserting(ranked, 1, m);
     //getline(cin, num);
-    //player = inserting(player, 2);
-    print(ranked, 1);
+    int n = stoi(num);
+    //player = inserting(player, 2, n);
+    //print(ranked, 1);
     //print(player, 2);
+    solution = compare(ranked, player);
+    
+    for (const auto &p : solution) {
+        cout << p;
+    }
 
 }
