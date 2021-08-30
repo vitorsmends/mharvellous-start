@@ -176,36 +176,24 @@ struct ll *inserting(struct ll *rank, int tipo, int tam){
 }
 
 
+
 vector<int> compare(struct ll *ranked, struct ll *player){
-    cout << "\n----- ranked:  \n";
-    print(ranked, 1);
-    cout << "\n----- player:  \n";
-    print(player, 2);
+    //cout << "\n----- ranked:  \n";
+    //print(ranked, 1);
+    //cout << "\n----- player:  \n";
+    //print(player, 2);
     int aux_ranked, aux_player;
     vector<int> pos_player;
-    /*
-    for(int i = 1; i <= tam_player; i++){
-        aux_player = search(player, i);
-        cout << "\ni = " << i << " num: " << aux_player;
-        for(int j = tam_ranked; j > 0; j--){
-            aux_ranked = search(player, j);
-            cout << "\nj = " << j << " num: " << aux_ranked;
-        }
-    }*/
-    
     int i_ranked, i_player;
     
-    for(int j = tam_player; j > 0; j--){
+    for(int j = 1; j >= tam_ranked; j++){
         //cout << "\n-------- pos_player: "<< j<<"---------\n"; 
         i_player = search(player, j);
         
         for(int i = tam_ranked; i > 0; i--){
             
-            //cout << "\ncomparando p = "<< i_player << " com r = "<< i_ranked<<"\n";
-            
-            //cout << "\n----pos_rank: "<< i<<"-----n/";
             i_ranked = search(ranked, i);
-            //cout << "\n vez:"<< i<<"\n";
+           
             if(i_player > i_ranked){ 
                 //cout << "maior";
                 if(i = 0){ 
@@ -224,6 +212,7 @@ vector<int> compare(struct ll *ranked, struct ll *player){
         }
     }    
 
+    
     return pos_player;
 }
 
@@ -267,17 +256,17 @@ main(void){
     
     string num = "3"; 
     vector<int> solution;
+
     getline(cin, num);
     int m = stoi(num);
     ranked = inserting(ranked, 1, m);
     getline(cin, num);
     int n = stoi(num);
     player = inserting(player, 2, n);
-    print(ranked, 1);
-    print(player, 2);
     solution = compare(ranked, player);
-    cout << "tam: " << tam_ranked << "\n";
+    
     for (const auto &p : solution) {
+        cout << "1";
         cout << p;
     }
 
