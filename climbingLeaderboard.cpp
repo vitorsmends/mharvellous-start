@@ -1,16 +1,10 @@
-/*
-pos ta ficando em 0;
-consertar o contador;
-o resto nao ta com problemas;
-terminar função compare
-*/
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <iterator>
 #include <vector>
 #include <algorithm>
-#include <stdio.h> //malloc
+#include <stdio.h> 
 #include <stdlib.h>
 #include  <bits/stdc++.h>
 using std::cout; using std::cin;
@@ -26,7 +20,6 @@ struct ll{
     struct ll *next;
 };
 
-//Define linked list functions
 struct ll *insert_back(struct ll *front, int num, int posit);
 struct ll *insert_front(struct ll *front, int num, int posit);
 int search(struct ll *front, int val);
@@ -38,7 +31,6 @@ struct ll *create_node(int num, int posit){
 
     struct ll *temp;
 
-    //Create temporary node
     temp = (struct ll *)malloc(sizeof(struct ll));
     temp->data = num;
     temp->position = posit;
@@ -48,7 +40,6 @@ struct ll *create_node(int num, int posit){
 }
 
 struct ll *insert_front(struct ll *front, int num, int position){
-    //cout << "\npos: "<< position;
     struct ll *temp = create_node(num, position);
     temp->next = front;
     return temp;
@@ -56,20 +47,6 @@ struct ll *insert_front(struct ll *front, int num, int position){
 
 
 int search(struct ll *front, int val){
-
-    //Iterate through the linked list until we reach the last node
-    /*
-    while (front->next != NULL){
-    cout << "\n" << front->data << "\n";
-    
-        if (front->position == val){ 
-            cout << "\nencontrei na pos: " << front->position << " data: "<< front->data <<"\n";
-            return front->data;
-            
-        }
-
-        front = front->next;
-    }*/
     
     for(int i = 1; i <= tam_ranked; i++){
     
@@ -84,22 +61,6 @@ int search(struct ll *front, int val){
     return 99; 
 }
 
-void print(struct ll *front, int tipo){
-    //Iterate through the linked list until we reach the last node
-    if(tipo == 1){
-        //printf("\ntamanho ranked %d\n", tam_ranked);
-        
-    }
-    else{
-        //printf("tamanho player %d\n", tam_player);
-    }
-    while (front != NULL){
-        printf("pos = %d ", front->position);
-        printf("num = %d ", front->data);
-        front = front->next;
-    }
-    printf("\n");
-}
 
 vector<int> divide(string text){
     
@@ -146,7 +107,7 @@ struct ll *inserting(struct ll *rank, int tipo, int tam){
             }
             else if(point == res){
                 tam_ranked--;
-                cout << "\n-\n";
+                
             } 
             
         }
@@ -197,10 +158,9 @@ vector<int> verifica(struct ll *ranked, struct ll *player){
 
     int aux_ranked, aux_player;
     vector<int> pos_player;
-    int i_ranked, i_player, r;
+    int r;
     
-    int j = 1;
-    //for(int j = 1; j >= tam_player; j++){
+    
     for(int j = 1; j <= tam_player; j++){
         aux_player = search(player, j);
         
@@ -234,10 +194,10 @@ vector<int> verifica(struct ll *ranked, struct ll *player){
 
 
 
-main(void){
+int main(void){
 
     struct ll *ranked, *player;
-    ranked = NULL; // An empty linked list
+    ranked = NULL;
     player = NULL;
     
     
@@ -255,5 +215,5 @@ main(void){
     for (const auto &p : solution) {
         cout << p;
     }
-
+    return 0;
 }
