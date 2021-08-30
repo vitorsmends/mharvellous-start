@@ -72,10 +72,8 @@ int search(struct ll *front, int val){
     }*/
     
     for(int i = 1; i <= tam_ranked; i++){
-        cout << "\n" << front->data << "\n";
     
         if (front->position == val){ 
-            cout << "\nencontrei na pos: " << front->position << " data: "<< front->data <<"\n";
             return front->data;
             
         }
@@ -166,7 +164,6 @@ struct ll *inserting(struct ll *rank, int tipo, int tam){
             }
             else if(point == res){
                 tam_player--;
-                cout << "\n-\n";
             } 
             
         }
@@ -175,77 +172,67 @@ struct ll *inserting(struct ll *rank, int tipo, int tam){
     return rank;
 }
 
+int compare(int a, int b, int i){
+    
+
+    if(a > b){
+        if(i == 1){
+            return 1;
+        }
+        return 0;
+    }
+    else if(a == b){
+        return 2;
+    }
+    else if(a < b){
+        int x = 3;
+        return x;
+    }
+    return 0;
+}
 
 
-vector<int> compare(struct ll *ranked, struct ll *player){
-    //cout << "\n----- ranked:  \n";
-    //print(ranked, 1);
-    //cout << "\n----- player:  \n";
-    //print(player, 2);
+
+vector<int> verifica(struct ll *ranked, struct ll *player){
+
     int aux_ranked, aux_player;
     vector<int> pos_player;
-    int i_ranked, i_player;
+    int i_ranked, i_player, r;
     
-    for(int j = 1; j >= tam_ranked; j++){
-        //cout << "\n-------- pos_player: "<< j<<"---------\n"; 
-        i_player = search(player, j);
+    int j = 1;
+    //for(int j = 1; j >= tam_player; j++){
+    for(int j = 1; j <= tam_player; j++){
+        aux_player = search(player, j);
         
         for(int i = tam_ranked; i > 0; i--){
+            aux_ranked = search(ranked, i);
+            r = compare(aux_player, aux_ranked, i);
+
+            if(r == 1){ 
+                pos_player.push_back(1);
+                i = 0;
+                break;
+            }
+            if(r == 2){ 
+                pos_player.push_back(2);
+                i = 0;
+                break;
+            }
+            else if(r == 3){
+                pos_player.push_back(3);
+                i = 0;
+                break;
+            }
             
-            i_ranked = search(ranked, i);
-           
-            if(i_player > i_ranked){ 
-                //cout << "maior";
-                if(i = 0){ 
-                    pos_player.push_back(1);
-                }
-            }
-            else if(i_player = i_ranked){
-                //cout << "igual";
-                pos_player.push_back(i);
-            }
-            else if(i_player < i_ranked){
-                //cout << "é menor";
-                pos_player.push_back(i+1);
-            }
-             
         }
+    
     }    
 
     
     return pos_player;
 }
 
-/*
-    for(int j = tam_player; j > 0; j--){
-        //cout << "\n-------- pos_player: "<< j<<"---------\n"; 
-        i_player = search(player, j);
-        
-        for(int i = tam_ranked; i > 0; i--){
-            
-            //cout << "\ncomparando p = "<< i_player << " com r = "<< i_ranked<<"\n";
-            
-            //cout << "\n----pos_rank: "<< i<<"-----n/";
-            i_ranked = search(ranked, i);
-            //cout << "\n vez:"<< i<<"\n";
-            if(i_player > i_ranked){ 
-                //cout << "maior";
-                if(i = 0){ 
-                    pos_player.push_back(1);
-                }
-            }
-            else if(i_player = i_ranked){
-                //cout << "igual";
-                pos_player.push_back(i);
-            }
-            else if(i_player < i_ranked){
-                //cout << "é menor";
-                pos_player.push_back(i+1);
-            }
-             
-        }
-    }
-    */
+
 
 main(void){
 
@@ -263,10 +250,9 @@ main(void){
     getline(cin, num);
     int n = stoi(num);
     player = inserting(player, 2, n);
-    solution = compare(ranked, player);
+    solution = verifica(ranked, player);
     
     for (const auto &p : solution) {
-        cout << "1";
         cout << p;
     }
 
